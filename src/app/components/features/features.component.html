@@ -1,0 +1,22 @@
+<!-- Features bar: floats over hero on desktop, stacks below on mobile -->
+<section id="servicios" class="relative z-20 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 lg:-mt-14 mb-12 sm:mb-16">
+  <div class="bg-white rounded-2xl shadow-xl border border-slate-100 p-5 sm:p-7">
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-y-6 gap-x-4 sm:gap-6">
+      @for (item of features; track item.title; let i = $index) {
+        <div
+          class="flex flex-col items-center text-center px-1 sm:px-2"
+          [class.border-t]="i === 2"
+          [class.lg:border-t-0]="i === 2"
+          [class.lg:border-l]="i > 0"
+          [class.border-slate-100]="i === 2 || i > 0"
+        >
+          <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-slate-50 border border-slate-200 flex items-center justify-center text-[#0A1F33] mb-2.5">
+            <span [innerHTML]="item.icon"></span>
+          </div>
+          <p class="text-xs sm:text-sm font-bold font-headline text-[#0A1F33] leading-snug">{{ item.title }}</p>
+          <p class="text-[11px] sm:text-xs text-slate-400 mt-0.5 leading-tight">{{ item.sub }}</p>
+        </div>
+      }
+    </div>
+  </div>
+</section>

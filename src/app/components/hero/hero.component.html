@@ -1,0 +1,81 @@
+<section
+  class="relative min-h-[520px] sm:min-h-[580px] lg:min-h-[640px] flex items-center justify-center overflow-hidden bg-[#0A1F33]">
+
+  <!-- Background Image -->
+  <div class="absolute inset-0 z-0">
+    <img src="/images/hero_mechanic.png" alt="Técnico automotriz instalando batería en Lima"
+      class="w-full h-full object-cover object-top sm:object-center" loading="eager" fetchpriority="high">
+    <div class="absolute inset-0 bg-gradient-to-r from-[#0A1F33]/97 via-[#0A1F33]/85 to-[#0A1F33]/60"></div>
+    <div class="absolute inset-0 bg-gradient-to-t from-[#0A1F33] via-transparent to-transparent"></div>
+  </div>
+
+  <div class="relative z-10 w-full max-w-3xl mx-auto px-5 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24 text-center">
+
+    <!-- Badge -->
+    <div
+      class="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-[#C58B59]/40 text-[#C58B59] text-[11px] sm:text-xs font-bold uppercase tracking-wider mb-6">
+      <span class="inline-block w-2 h-2 rounded-full bg-[#E65100] animate-pulse shrink-0"></span>
+      AUXILIO RÁPIDO EN LIMA
+    </div>
+
+    <!-- Headline — safe on iPhone SE (375px) -->
+    <h1
+      class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-white tracking-tight font-headline mb-4 sm:mb-5 leading-[1.1]">
+      Potencia que<br />
+      <span class="text-[#C58B59]">no te detiene</span>
+    </h1>
+
+    <!-- Subtitle -->
+    <p class="text-base sm:text-lg text-slate-300 mb-8 sm:mb-10 px-2">
+      Entrega e instalación <strong class="text-white">gratis</strong> en toda Lima. Llegamos en minutos.
+    </p>
+
+    <!-- CTAs -->
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
+      <button (click)="whatsapp.openEmergencyDispatch()"
+        class="w-full sm:w-auto inline-flex items-center justify-center gap-2 sm:gap-3 px-6 sm:px-8 py-3.5 sm:py-4 rounded-full bg-[#C58B59] hover:bg-[#A46E3F] text-white font-bold text-sm sm:text-base transition-all shadow-xl hover:-translate-y-0.5 cursor-pointer"
+        id="cta-hero-auxilio">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 shrink-0" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M13 10V3L4 14h7v7l9-11h-7z" />
+        </svg>
+        Solicitar Auxilio Mecánico
+      </button>
+
+      <a href="#catalogo"
+        class="w-full sm:w-auto inline-flex items-center justify-center px-6 sm:px-8 py-3.5 sm:py-4 rounded-full bg-white/10 hover:bg-white/20 text-white font-semibold text-sm sm:text-base border border-white/30 hover:border-white transition-all backdrop-blur-md"
+        id="cta-hero-catalogo">
+        Ver Catálogo
+      </a>
+    </div>
+
+    <!-- Trust strip — wraps cleanly on mobile -->
+    <div
+      class="mt-10 sm:mt-12 pt-6 sm:pt-8 border-t border-white/10 flex flex-wrap items-center justify-center gap-4 sm:gap-8 text-xs sm:text-sm text-slate-400">
+      <span class="flex items-center gap-1.5 whitespace-nowrap">
+        <svg class="w-4 h-4 text-[#C58B59] shrink-0" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd"
+            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+            clip-rule="evenodd" />
+        </svg>
+        30-45 min
+      </span>
+      <span class="flex items-center gap-1.5 whitespace-nowrap">
+        <svg class="w-4 h-4 text-[#C58B59] shrink-0" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd"
+            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+            clip-rule="evenodd" />
+        </svg>
+        Garantía Oficial
+      </span>
+      <span class="flex items-center gap-1.5 whitespace-nowrap">
+        <svg class="w-4 h-4 text-[#C58B59] shrink-0" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd"
+            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+            clip-rule="evenodd" />
+        </svg>
+        Yape · Plin · Efectivo
+      </span>
+    </div>
+
+  </div>
+</section>

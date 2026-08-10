@@ -1,0 +1,45 @@
+<section id="faq" class="py-12 sm:py-14 bg-white border-t border-slate-100">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6">
+
+    <div class="text-center mb-8 sm:mb-10">
+      <h2 class="text-xl sm:text-2xl md:text-3xl font-extrabold text-[#0A1F33] font-headline">Preguntas Frecuentes</h2>
+    </div>
+
+    <div class="space-y-2.5 sm:space-y-3">
+      @for (item of faqs; track item.question; let i = $index) {
+        <div class="rounded-xl sm:rounded-2xl border border-slate-200 overflow-hidden" [class.border-[#C58B59]/50]="item.isOpen">
+          <button
+            (click)="toggleFaq(i)"
+            class="w-full p-3.5 sm:p-4 text-left bg-white hover:bg-slate-50 flex items-center justify-between gap-3 transition-colors cursor-pointer"
+            [attr.aria-expanded]="item.isOpen"
+          >
+            <span class="font-semibold text-xs sm:text-sm text-[#0A1F33] leading-snug">{{ item.question }}</span>
+            <svg class="w-4 h-4 text-slate-400 shrink-0 transition-transform duration-200"
+              [class.rotate-180]="item.isOpen"
+              fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </button>
+          @if (item.isOpen) {
+            <div class="px-3.5 sm:px-4 pb-3.5 sm:pb-4 text-xs sm:text-sm text-slate-500 leading-relaxed bg-slate-50/50 border-t border-slate-100">
+              {{ item.answer }}
+            </div>
+          }
+        </div>
+      }
+    </div>
+
+    <!-- CTA after FAQ -->
+    <div class="mt-8 text-center">
+      <p class="text-xs sm:text-sm text-slate-500 mb-3">¿Tienes más preguntas?</p>
+      <a href="#cotizar"
+        class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#0A1F33] text-white font-bold text-xs sm:text-sm hover:bg-[#132B45] transition-colors shadow-md">
+        Contáctanos ahora
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+        </svg>
+      </a>
+    </div>
+
+  </div>
+</section>

@@ -1,0 +1,162 @@
+<header
+  class="sticky top-0 z-40 w-full transition-all duration-300"
+  [class.bg-white]="scrolled()"
+  [class.shadow-lg]="scrolled()"
+  [class.backdrop-blur-md]="scrolled()"
+  [class.bg-white/80]="!scrolled()"
+  [class.border-b]="scrolled()"
+  [class.border-slate-100]="scrolled()"
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-20">
+
+      <!-- Logo -->
+      <a
+        (click)="navigateTo('#')"
+        href="#"
+        class="flex items-center gap-2.5 group focus:outline-none"
+      >
+        <div class="w-9 h-9 rounded-lg bg-[#0A1F33] flex items-center justify-center text-[#C58B59] group-hover:scale-105 transition-transform">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M16 20H8V6h8v14zm2-14V4c0-1.1-.9-2-2-2h-4c-1.1 0-2 .9-2 2v2H6c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-2zm-3 8h-2v2h-2v-2H9v-2h2v-2h2v2h2v2z"/>
+          </svg>
+        </div>
+        <div class="flex flex-col">
+          <span class="text-xl font-extrabold tracking-tight font-headline text-[#0A1F33] leading-none">ZERAUS</span>
+          <span class="text-[10px] font-bold tracking-widest text-[#C58B59] uppercase mt-0.5">BATERÍAS</span>
+        </div>
+      </a>
+
+      <!-- Desktop nav links -->
+      <nav class="hidden md:flex items-center gap-1" aria-label="Navegación principal">
+        @for (link of navLinks; track link.href) {
+          <button
+            (click)="navigateTo(link.href)"
+            class="relative px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 cursor-pointer group"
+            [class.text-[#C58B59]]="activeSection() === link.href"
+            [class.text-slate-600]="activeSection() !== link.href"
+            [class.font-bold]="activeSection() === link.href"
+          >
+            {{ link.label }}
+            <!-- Animated underline indicator -->
+            <span
+              class="absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 bg-[#C58B59] rounded-full transition-all duration-300"
+              [class.w-4]="activeSection() === link.href"
+              [class.w-0]="activeSection() !== link.href"
+              [class.opacity-100]="activeSection() === link.href"
+              [class.opacity-0]="activeSection() !== link.href"
+            ></span>
+          </button>
+        }
+      </nav>
+
+      <!-- Desktop actions -->
+      <div class="hidden md:flex items-center gap-3">
+        <!-- A11y trigger -->
+        <button
+          (click)="a11y.togglePanel()"
+          class="p-2 rounded-full text-slate-500 hover:text-[#0A1F33] hover:bg-slate-100 transition-all"
+          title="Accesibilidad"
+          aria-label="Abrir panel de accesibilidad"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+            <circle cx="12" cy="4" r="2"/>
+            <path d="M15.89 8.11C15.5 7.72 14.83 7 13.53 7h-3.06c-1.3 0-1.97.72-2.36 1.11L4.2 12.02c-.39.39-.39 1.02 0 1.41.39.39 1.02.39 1.41 0L8 11.05V21c0 .55.45 1 1 1s1-.45 1-1v-6h4v6c0 .55.45 1 1 1s1-.45 1-1V11.05l2.39 2.39c.39.39 1.02.39 1.41 0 .39-.39.39-1.02 0-1.41l-3.9-3.92z"/>
+          </svg>
+        </button>
+
+        <button
+          (click)="navigateTo('#cotizar')"
+          class="px-5 py-2.5 rounded-full bg-[#C58B59] hover:bg-[#A46E3F] text-white text-sm font-bold transition-all shadow-md hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
+          id="cta-navbar-contact"
+        >
+          Contáctanos
+        </button>
+      </div>
+
+      <!-- Mobile: a11y + hamburger -->
+      <div class="flex items-center gap-2 md:hidden">
+        <button
+          (click)="a11y.togglePanel()"
+          class="p-2 rounded-lg text-[#C58B59] hover:bg-slate-100 transition-colors"
+          aria-label="Accesibilidad"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+            <circle cx="12" cy="4" r="2"/>
+            <path d="M15.89 8.11C15.5 7.72 14.83 7 13.53 7h-3.06c-1.3 0-1.97.72-2.36 1.11L4.2 12.02c-.39.39-.39 1.02 0 1.41.39.39 1.02.39 1.41 0L8 11.05V21c0 .55.45 1 1 1s1-.45 1-1v-6h4v6c0 .55.45 1 1 1s1-.45 1-1V11.05l2.39 2.39c.39.39 1.02.39 1.41 0 .39-.39.39-1.02 0-1.41l-3.9-3.92z"/>
+          </svg>
+        </button>
+
+        <button
+          (click)="toggleMobileMenu()"
+          class="p-2.5 rounded-lg text-[#0A1F33] hover:bg-slate-100 transition-colors"
+          [attr.aria-expanded]="mobileMenuOpen()"
+          aria-label="Menú"
+        >
+          <!-- Animated hamburger → X -->
+          <div class="w-5 h-4 flex flex-col justify-between overflow-hidden">
+            <span class="block h-0.5 bg-current rounded-full transition-all duration-300 origin-left"
+              [class.rotate-45]="mobileMenuOpen()"
+              [class.translate-y-0]="!mobileMenuOpen()"
+            ></span>
+            <span class="block h-0.5 bg-current rounded-full transition-all duration-300"
+              [class.opacity-0]="mobileMenuOpen()"
+              [class.scale-x-75]="mobileMenuOpen()"
+            ></span>
+            <span class="block h-0.5 bg-current rounded-full transition-all duration-300 origin-left"
+              [class.-rotate-45]="mobileMenuOpen()"
+            ></span>
+          </div>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile dropdown — with slide-down animation -->
+  <div
+    class="md:hidden overflow-hidden transition-all duration-300 ease-in-out"
+    [class.max-h-0]="!mobileMenuOpen()"
+    [class.max-h-96]="mobileMenuOpen()"
+    [class.opacity-0]="!mobileMenuOpen()"
+    [class.opacity-100]="mobileMenuOpen()"
+  >
+    <div class="bg-white border-b border-slate-100 px-4 pt-2 pb-6 space-y-1 shadow-xl">
+      @for (link of navLinks; track link.href) {
+        <button
+          (click)="navigateTo(link.href)"
+          class="w-full text-left py-3 px-3 rounded-xl text-sm font-medium transition-all duration-150 cursor-pointer flex items-center gap-2"
+          [class.text-[#C58B59]]="activeSection() === link.href"
+          [class.bg-[#C58B59]/5]="activeSection() === link.href"
+          [class.font-bold]="activeSection() === link.href"
+          [class.text-slate-700]="activeSection() !== link.href"
+          [class.hover:bg-slate-50]="activeSection() !== link.href"
+        >
+          <span
+            class="w-1 rounded-full transition-all duration-300 bg-[#C58B59]"
+            [class.h-4]="activeSection() === link.href"
+            [class.h-0]="activeSection() !== link.href"
+          ></span>
+          {{ link.label }}
+        </button>
+      }
+
+      <div class="pt-3 border-t border-slate-100 space-y-2">
+        <button
+          (click)="navigateTo('#cotizar')"
+          class="w-full py-3 px-4 rounded-xl bg-[#C58B59] text-white font-bold text-sm shadow-md cursor-pointer hover:bg-[#A46E3F] transition-colors"
+        >
+          Cotizar Batería
+        </button>
+        <button
+          (click)="callEmergencyWhatsApp()"
+          class="w-full py-3 px-4 rounded-xl bg-[#E65100] text-white font-bold text-sm flex items-center justify-center gap-2 cursor-pointer hover:bg-[#C04400] transition-colors"
+        >
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M13 10V3L4 14h7v7l9-11h-7z"/>
+          </svg>
+          Auxilio Mecánico Urgente
+        </button>
+      </div>
+    </div>
+  </div>
+</header>

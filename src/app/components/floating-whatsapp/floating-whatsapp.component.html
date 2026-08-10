@@ -1,0 +1,22 @@
+<div class="fixed bottom-5 right-5 sm:bottom-6 sm:right-6 z-50 flex items-center gap-2 sm:gap-3 group">
+  <!-- Tooltip — desktop only -->
+  <div class="hidden sm:flex pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+    <div class="bg-[#0A1F33] text-white text-xs font-semibold px-3 py-1.5 rounded-xl shadow-xl border border-[#C58B59]/30 flex items-center gap-1.5 whitespace-nowrap">
+      <span class="w-1.5 h-1.5 rounded-full bg-green-400 animate-ping shrink-0"></span>
+      ¡Escríbenos por WhatsApp!
+    </div>
+  </div>
+
+  <!-- Button -->
+  <button
+    (click)="whatsapp.openEmergencyDispatch()"
+    class="relative w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-[#25D366] hover:bg-[#1EBE5D] text-white shadow-2xl flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95 cursor-pointer focus:outline-none focus:ring-4 focus:ring-[#25D366]/40"
+    aria-label="Abrir chat de WhatsApp"
+    id="cta-floating-whatsapp"
+  >
+    <span class="absolute inset-0 rounded-full bg-[#25D366] opacity-40 animate-ping"></span>
+    <svg class="w-6 h-6 sm:w-7 sm:h-7 fill-current" viewBox="0 0 24 24">
+      <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.664-.699c.991.543 1.99.829 2.796.829 3.182 0 5.768-2.587 5.768-5.766.001-3.181-2.584-5.765-5.768-5.765zm0-1.872c4.218 0 7.64 3.422 7.64 7.638 0 4.217-3.422 7.638-7.64 7.638-1.328 0-2.579-.344-3.673-.949l-4.358 1.143 1.164-4.249c-.689-1.15-1.073-2.493-1.073-3.923 0-4.216 3.422-7.638 7.64-7.638z"/>
+    </svg>
+  </button>
+</div>

@@ -1,0 +1,201 @@
+<!-- ===== REINVENTED ACCESSIBILITY WIDGET (Fixed, Compact, Always High-Contrast) ===== -->
+<div class="a11y-widget-root">
+
+  <!-- Floating popup card (positioned directly above trigger) -->
+  @if (a11y.isOpen()) {
+    <div
+      class="a11y-popup-card mb-3 w-[320px] max-w-[calc(100vw-36px)] rounded-2xl bg-white shadow-2xl border border-slate-200 overflow-hidden flex flex-col"
+      role="dialog"
+      aria-label="Panel de accesibilidad"
+      style="box-shadow: 0 20px 40px -10px rgba(10, 31, 51, 0.35), 0 0 0 1px rgba(0,0,0,0.06);"
+    >
+
+      <!-- 1. Header -->
+      <div class="bg-[#0A1F33] px-4 py-3.5 flex items-center justify-between border-b border-[#132B45] text-white select-none">
+        <div class="flex items-center gap-2">
+          <span class="w-7 h-7 rounded-lg bg-[#C58B59] text-[#0A1F33] flex items-center justify-center font-bold text-sm">
+            ♿
+          </span>
+          <div>
+            <h2 class="text-sm font-bold text-white font-headline leading-none">Accesibilidad</h2>
+            <span class="text-[11px] text-slate-300 font-normal">Ajustes visuales</span>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <button
+            (click)="resetAll()"
+            type="button"
+            class="text-[11px] font-semibold text-[#C58B59] hover:text-white px-2 py-1 rounded-md hover:bg-white/10 transition-colors cursor-pointer"
+            title="Restablecer valores originales"
+          >
+            Restablecer
+          </button>
+          <button
+            (click)="close()"
+            type="button"
+            class="w-7 h-7 rounded-lg bg-white/10 hover:bg-white/20 text-slate-300 hover:text-white flex items-center justify-center transition-colors cursor-pointer"
+            aria-label="Cerrar panel de accesibilidad"
+          >
+            ✕
+          </button>
+        </div>
+      </div>
+
+      <!-- 2. Scrollable Body -->
+      <div class="p-4 space-y-4 max-h-[390px] overflow-y-auto a11y-scrollbar bg-[#FFFFFF] text-[#0F172A]">
+
+        <!-- A. TAMAÑO DE FUENTE -->
+        <div>
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-bold text-slate-900 uppercase tracking-wider">
+              Tamaño de Texto
+            </span>
+            <span class="text-xs font-semibold px-2 py-0.5 rounded-md bg-amber-50 text-[#C58B59] border border-[#C58B59]/30">
+              {{ a11y.fontSize() }}%
+            </span>
+          </div>
+
+          <div class="grid grid-cols-4 gap-1.5">
+            @for (sz of fontSizes; track sz.value) {
+              <button
+                (click)="setFontSize(sz.value)"
+                type="button"
+                class="py-2.5 px-1 rounded-xl border-2 transition-all flex flex-col items-center justify-center gap-0.5 cursor-pointer select-none"
+                [class.bg-[#0A1F33]]="a11y.fontSize() === sz.value"
+                [class.border-[#C58B59]]="a11y.fontSize() === sz.value"
+                [class.text-white]="a11y.fontSize() === sz.value"
+                [class.shadow-md]="a11y.fontSize() === sz.value"
+                [class.bg-slate-50]="a11y.fontSize() !== sz.value"
+                [class.border-slate-200]="a11y.fontSize() !== sz.value"
+                [class.text-slate-700]="a11y.fontSize() !== sz.value"
+                [class.hover:bg-slate-100]="a11y.fontSize() !== sz.value"
+                [attr.aria-pressed]="a11y.fontSize() === sz.value"
+              >
+                <span class="font-extrabold leading-none" [ngClass]="sz.previewClass">
+                  {{ sz.badge }}
+                </span>
+                <span class="text-[10px] font-semibold opacity-90 leading-tight">
+                  {{ sz.label }}
+                </span>
+              </button>
+            }
+          </div>
+        </div>
+
+        <!-- B. TIPOGRAFÍA DISLEXIA -->
+        <div class="pt-3 border-t border-slate-100">
+          <button
+            (click)="a11y.toggleDyslexiaFont()"
+            type="button"
+            class="w-full p-2.5 rounded-xl border transition-all flex items-center justify-between gap-3 text-left cursor-pointer select-none"
+            [class.bg-amber-50/60]="a11y.dyslexiaFont()"
+            [class.border-[#C58B59]]="a11y.dyslexiaFont()"
+            [class.bg-slate-50]="!a11y.dyslexiaFont()"
+            [class.border-slate-200]="!a11y.dyslexiaFont()"
+            role="switch"
+            [attr.aria-checked]="a11y.dyslexiaFont()"
+          >
+            <div class="flex items-center gap-2.5">
+              <span class="w-8 h-8 rounded-lg bg-slate-200/80 text-slate-800 flex items-center justify-center text-sm font-bold shrink-0">
+                Aa
+              </span>
+              <div>
+                <p class="text-xs font-bold text-slate-900 leading-tight">Fuente para Dislexia</p>
+                <p class="text-[11px] text-slate-500 leading-tight mt-0.5">Tipografía Lexend adaptada</p>
+              </div>
+            </div>
+
+            <!-- Custom Switch -->
+            <div
+              class="w-10 h-5 rounded-full transition-colors relative shrink-0"
+              [style.background]="a11y.dyslexiaFont() ? '#0A1F33' : '#cbd5e1'"
+            >
+              <div
+                class="w-4 h-4 rounded-full bg-white shadow-md transition-transform absolute top-0.5"
+                [style.transform]="a11y.dyslexiaFont() ? 'translateX(22px)' : 'translateX(2px)'"
+              ></div>
+            </div>
+          </button>
+        </div>
+
+        <!-- C. FILTROS DE COLOR Y DALTONISMO -->
+        <div class="pt-3 border-t border-slate-100">
+          <div class="mb-2">
+            <span class="text-xs font-bold text-slate-900 uppercase tracking-wider">
+              Daltonismo y Contraste
+            </span>
+          </div>
+
+          <div class="space-y-1.5">
+            @for (mode of colorModes; track mode.id) {
+              <button
+                (click)="setColorMode(mode.id)"
+                type="button"
+                class="w-full px-3 py-2 rounded-xl border transition-all flex items-center justify-between text-left cursor-pointer select-none"
+                [class.bg-[#0A1F33]]="a11y.colorMode() === mode.id"
+                [class.border-[#C58B59]]="a11y.colorMode() === mode.id"
+                [class.text-white]="a11y.colorMode() === mode.id"
+                [class.shadow-sm]="a11y.colorMode() === mode.id"
+                [class.bg-slate-50]="a11y.colorMode() !== mode.id"
+                [class.border-slate-200]="a11y.colorMode() !== mode.id"
+                [class.text-slate-800]="a11y.colorMode() !== mode.id"
+                [class.hover:bg-slate-100]="a11y.colorMode() !== mode.id"
+              >
+                <div class="flex items-center gap-2.5">
+                  <span
+                    class="w-3.5 h-3.5 rounded-full border border-white/60 shadow-xs shrink-0"
+                    [style.background-color]="mode.color"
+                  ></span>
+                  <div class="flex flex-col">
+                    <span class="text-xs font-bold leading-tight">
+                      {{ mode.name }}
+                    </span>
+                    <span
+                      class="text-[10px] leading-tight"
+                      [class.text-slate-300]="a11y.colorMode() === mode.id"
+                      [class.text-slate-500]="a11y.colorMode() !== mode.id"
+                    >
+                      {{ mode.desc }}
+                    </span>
+                  </div>
+                </div>
+
+                @if (a11y.colorMode() === mode.id) {
+                  <span class="text-[#C58B59] font-bold text-sm">✓</span>
+                }
+              </button>
+            }
+          </div>
+        </div>
+
+      </div>
+
+      <!-- 3. Bottom Footer Note -->
+      <div class="bg-slate-50 px-4 py-2 text-center border-t border-slate-100 text-[11px] text-slate-500">
+        ⚡ Configuración guardada automáticamente
+      </div>
+
+    </div>
+  }
+
+  <!-- Floating Trigger Button -->
+  <button
+    (click)="a11y.togglePanel()"
+    type="button"
+    class="w-12 h-12 sm:w-13 sm:h-13 rounded-full bg-[#0A1F33] hover:bg-[#132B45] text-white shadow-2xl border-2 border-[#C58B59] hover:scale-110 active:scale-95 transition-all flex items-center justify-center focus:outline-none focus:ring-4 focus:ring-[#C58B59]/40 cursor-pointer select-none group"
+    aria-label="Abrir panel de accesibilidad universal"
+    title="Opciones de Accesibilidad"
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-[#C58B59] group-hover:rotate-12 transition-transform" viewBox="0 0 24 24" fill="currentColor">
+      <circle cx="12" cy="4" r="2"/>
+      <path d="M15.89 8.11C15.5 7.72 14.83 7 13.53 7h-3.06c-1.3 0-1.97.72-2.36 1.11L4.2 12.02c-.39.39-.39 1.02 0 1.41.39.39 1.02.39 1.41 0L8 11.05V21c0 .55.45 1 1 1s1-.45 1-1v-6h4v6c0 .55.45 1 1 1s1-.45 1-1V11.05l2.39 2.39c.39.39 1.02.39 1.41 0 .39-.39.39-1.02 0-1.41l-3.9-3.92z"/>
+    </svg>
+
+    <!-- Notification dot if any setting is customized -->
+    @if (a11y.fontSize() !== '100' || a11y.dyslexiaFont() || a11y.colorMode() !== 'normal') {
+      <span class="absolute -top-1 -right-1 w-3.5 h-3.5 rounded-full bg-[#E65100] border-2 border-white animate-pulse"></span>
+    }
+  </button>
+
+</div>
